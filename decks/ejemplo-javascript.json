@@ -1,0 +1,688 @@
+{
+  "format": "cardlearner/v1",
+  "id": "js-desde-cero",
+  "title": "JavaScript desde cero",
+  "description": "Un recorrido interactivo por lo básico de JavaScript: variables, arrays, bucles y funciones. **Incluye todos los tipos de tarjeta** para que veas lo que puede hacer CardLearner.",
+  "author": "CardLearner",
+  "language": "javascript",
+  "level": "Principiante",
+  "estimatedMinutes": 25,
+  "lockSections": false,
+  "theme": {
+    "cardAnimation": "slide"
+  },
+  "sections": [
+    {
+      "id": "bienvenida",
+      "title": "Bienvenida",
+      "description": "Cómo funcionan las tarjetas.",
+      "cards": [
+        {
+          "id": "hola",
+          "type": "lesson",
+          "title": "Cómo funciona",
+          "animation": "zoom",
+          "content": "## Se aprende [escribiendo código]{.mark}, no solo leyéndolo\n\nCada tarjeta es un paso breve. Unas explican, otras **preguntan** y otras piden **escribir código real**.\n\nEste bloque se puede **editar y ejecutar**. Cambia el texto y pulsa *Ejecutar*:\n\n```js run\nconst nombre = \"mundo\";\nconsole.log(\"Hola, \" + nombre);\n```\n\n:::tip\nUsa las flechas ← → del teclado para moverte entre tarjetas.\n:::\n\nEl texto admite matices: [acento]{.accent}, [énfasis animado]{.mark}, ==resaltado== y ||respuestas ocultas que se revelan al pulsar||."
+        },
+        {
+          "id": "que-es-js",
+          "type": "flashcard",
+          "title": "Primera tarjeta",
+          "front": "¿Dónde se ejecuta **JavaScript**?",
+          "back": "En el **navegador** y también en servidores, con **Node.js**."
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "title": "Variables y tipos",
+      "description": "let, const y los tipos básicos.",
+      "cards": [
+        {
+          "id": "let-const",
+          "type": "lesson",
+          "title": "let y const",
+          "content": "Una **variable** es una caja con nombre donde guardas un valor.\n\n```js {1,3}\nlet edad = 20;      // puede cambiar\nedad = 21;\nconst PI = 3.14;    // no se puede reasignar\n```\n\n| Palabra | ¿Se puede reasignar? |\n|---|---|\n| `let` | Sí |\n| `const` | No |\n\n:::warn Evita var\n`var` es la forma antigua. Hoy se usa `let` y `const`.\n:::"
+        },
+        {
+          "id": "traza-variables",
+          "type": "trace",
+          "title": "Cómo cambian las variables",
+          "prompt": "Reproduce la animación para ver el programa ejecutarse **línea a línea**.",
+          "autoplay": false,
+          "code": "let a = 5;\nlet b = a;\na = a + 10;\nconst total = a + b;\nconsole.log(total);",
+          "steps": [
+            {
+              "line": 1,
+              "vars": {
+                "a": 5
+              },
+              "note": "Creamos `a` con el valor 5."
+            },
+            {
+              "line": 2,
+              "vars": {
+                "a": 5,
+                "b": 5
+              },
+              "note": "`b` **copia** el valor de `a`."
+            },
+            {
+              "line": 3,
+              "vars": {
+                "a": 15,
+                "b": 5
+              },
+              "note": "`a` pasa a valer 15, pero `b` sigue valiendo 5."
+            },
+            {
+              "line": 4,
+              "vars": {
+                "a": 15,
+                "b": 5,
+                "total": 20
+              },
+              "note": "15 + 5 = 20"
+            },
+            {
+              "line": 5,
+              "vars": {
+                "a": 15,
+                "b": 5,
+                "total": 20
+              },
+              "output": "20",
+              "note": "Se imprime el resultado."
+            }
+          ],
+          "explanation": "Con números, asignar `b = a` copia el **valor**: cambiar `a` después no afecta a `b`."
+        },
+        {
+          "id": "typeof-null",
+          "type": "quiz",
+          "title": "Tipos",
+          "question": "¿Cuál de estos **no** es un tipo primitivo de JavaScript?",
+          "options": [
+            "`string`",
+            "`number`",
+            "`array`",
+            "`boolean`"
+          ],
+          "answer": 2,
+          "explanation": "Los arrays son **objetos**. Los primitivos son `string`, `number`, `boolean`, `null`, `undefined`, `bigint` y `symbol`."
+        },
+        {
+          "id": "const-mutable",
+          "type": "truefalse",
+          "title": "const y los arrays",
+          "statement": "Con `const lista = [1, 2]` **no** se puede hacer `lista.push(3)`.",
+          "answer": false,
+          "explanation": "`const` impide **reasignar** la variable, pero el array se puede modificar: `lista.push(3)` funciona."
+        },
+        {
+          "id": "suma-strings",
+          "type": "predict",
+          "title": "¿Qué imprime?",
+          "question": "Ojo con los tipos. ¿Qué muestra la consola? (una línea por cada `console.log`)",
+          "code": "let x = \"5\";\nlet y = 2;\nconsole.log(x + y);\nconsole.log(x * y);",
+          "answer": "52\n10",
+          "hints": [
+            "`+` con un string **concatena**.",
+            "`*` siempre convierte a número."
+          ],
+          "explanation": "`\"5\" + 2` → `\"52\"` (concatenación). `\"5\" * 2` → `10` (conversión numérica)."
+        },
+        {
+          "id": "typeof-array",
+          "type": "predict",
+          "title": "typeof",
+          "code": "console.log(typeof []);",
+          "options": [
+            "array",
+            "object",
+            "list",
+            "undefined"
+          ],
+          "answer": "object",
+          "explanation": "Para saber si algo es un array usa `Array.isArray(x)`."
+        },
+        {
+          "id": "empareja-tipos",
+          "type": "match",
+          "title": "Empareja valor y tipo",
+          "prompt": "Une cada valor con lo que devuelve `typeof`:",
+          "pairs": [
+            [
+              "`42`",
+              "\"number\""
+            ],
+            [
+              "`\"hola\"`",
+              "\"string\""
+            ],
+            [
+              "`true`",
+              "\"boolean\""
+            ],
+            [
+              "`undefined`",
+              "\"undefined\""
+            ],
+            [
+              "`{}`",
+              "\"object\""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arrays-bucles",
+      "title": "Arrays y bucles",
+      "description": "Recorre, transforma y ordena datos.",
+      "cards": [
+        {
+          "id": "burbuja",
+          "type": "trace",
+          "title": "Ordenación burbuja",
+          "prompt": "Observa cómo se **comparan** e **intercambian** los elementos vecinos.",
+          "speed": "normal",
+          "code": "const a = [3, 1, 2];\nfor (let i = 0; i < a.length - 1; i++) {\n  for (let j = 0; j < a.length - 1 - i; j++) {\n    if (a[j] > a[j + 1]) {\n      [a[j], a[j + 1]] = [a[j + 1], a[j]];\n    }\n  }\n}\nconsole.log(a);",
+          "arrayName": "a",
+          "steps": [
+            {
+              "line": 1,
+              "array": [
+                3,
+                1,
+                2
+              ],
+              "note": "Empezamos con un array desordenado."
+            },
+            {
+              "line": 2,
+              "vars": {
+                "i": 0
+              },
+              "array": [
+                3,
+                1,
+                2
+              ]
+            },
+            {
+              "line": 3,
+              "vars": {
+                "i": 0,
+                "j": 0
+              },
+              "array": [
+                3,
+                1,
+                2
+              ],
+              "pointers": {
+                "j": 0
+              },
+              "highlight": [
+                0,
+                1
+              ]
+            },
+            {
+              "line": 4,
+              "vars": {
+                "i": 0,
+                "j": 0
+              },
+              "array": [
+                3,
+                1,
+                2
+              ],
+              "pointers": {
+                "j": 0
+              },
+              "highlight": [
+                0,
+                1
+              ],
+              "note": "¿3 > 1? **Sí**: se intercambian."
+            },
+            {
+              "line": 5,
+              "vars": {
+                "i": 0,
+                "j": 0
+              },
+              "array": [
+                1,
+                3,
+                2
+              ],
+              "pointers": {
+                "j": 0
+              },
+              "highlight": [
+                0,
+                1
+              ],
+              "swap": [
+                0,
+                1
+              ],
+              "note": "Intercambio."
+            },
+            {
+              "line": 3,
+              "vars": {
+                "i": 0,
+                "j": 1
+              },
+              "array": [
+                1,
+                3,
+                2
+              ],
+              "pointers": {
+                "j": 1
+              },
+              "highlight": [
+                1,
+                2
+              ]
+            },
+            {
+              "line": 4,
+              "vars": {
+                "i": 0,
+                "j": 1
+              },
+              "array": [
+                1,
+                3,
+                2
+              ],
+              "pointers": {
+                "j": 1
+              },
+              "highlight": [
+                1,
+                2
+              ],
+              "note": "¿3 > 2? **Sí**."
+            },
+            {
+              "line": 5,
+              "vars": {
+                "i": 0,
+                "j": 1
+              },
+              "array": [
+                1,
+                2,
+                3
+              ],
+              "pointers": {
+                "j": 1
+              },
+              "highlight": [
+                1,
+                2
+              ],
+              "swap": [
+                1,
+                2
+              ]
+            },
+            {
+              "line": 2,
+              "vars": {
+                "i": 1
+              },
+              "array": [
+                1,
+                2,
+                3
+              ],
+              "done": [
+                2
+              ],
+              "note": "El mayor (3) ya ocupa su sitio al final."
+            },
+            {
+              "line": 3,
+              "vars": {
+                "i": 1,
+                "j": 0
+              },
+              "array": [
+                1,
+                2,
+                3
+              ],
+              "pointers": {
+                "j": 0
+              },
+              "highlight": [
+                0,
+                1
+              ],
+              "done": [
+                2
+              ]
+            },
+            {
+              "line": 4,
+              "vars": {
+                "i": 1,
+                "j": 0
+              },
+              "array": [
+                1,
+                2,
+                3
+              ],
+              "pointers": {
+                "j": 0
+              },
+              "highlight": [
+                0,
+                1
+              ],
+              "done": [
+                2
+              ],
+              "note": "¿1 > 2? No, se quedan igual."
+            },
+            {
+              "line": 9,
+              "vars": {},
+              "array": [
+                1,
+                2,
+                3
+              ],
+              "done": [
+                0,
+                1,
+                2
+              ],
+              "output": "[1, 2, 3]",
+              "note": "Array ordenado."
+            }
+          ]
+        },
+        {
+          "id": "for-of",
+          "type": "lesson",
+          "title": "Recorrer arrays",
+          "content": "Hay varias formas de recorrer un array:\n\n```js run\nconst frutas = [\"manzana\", \"pera\", \"uva\"];\n\nfor (const f of frutas) {\n  console.log(\"Me gusta\", f);\n}\n\nfrutas.forEach((f, i) => console.log(i, f));\n```\n\n- `for...of` → recorre **valores**\n- `forEach` → llama a una función por cada elemento\n- `map` / `filter` → crean **arrays nuevos**"
+        },
+        {
+          "id": "filtra-pares",
+          "type": "fill",
+          "title": "Completa el filtro",
+          "prompt": "Completa el código para quedarte solo con los números **pares**. Puedes escribir o pulsar las palabras.",
+          "code": "const numeros = [1, 2, 3, 4];\nconst pares = numeros.[[filter]](n => n [[%]] 2 === 0);\nconsole.log(pares); // [2, 4]",
+          "bank": true,
+          "distractors": [
+            "map",
+            "/",
+            "reduce"
+          ],
+          "explanation": "`filter` se queda con los elementos para los que la función devuelve `true`. `%` es el resto de la división."
+        },
+        {
+          "id": "ordena-suma",
+          "type": "order",
+          "title": "Ordena el programa",
+          "prompt": "Ordena las líneas para **sumar** todos los números del array:",
+          "lines": [
+            "const nums = [4, 5, 6];",
+            "let total = 0;",
+            "for (const n of nums) {",
+            "  total += n;",
+            "}",
+            "console.log(total);"
+          ],
+          "explanation": "Primero se declaran los datos y el acumulador, luego el bucle suma, y al final se muestra."
+        },
+        {
+          "id": "reto-suma",
+          "type": "code",
+          "title": "Reto: suma un array",
+          "prompt": "Escribe una función `sumar(nums)` que devuelva la **suma** de todos los números del array.\n\nSi el array está vacío debe devolver `0`.",
+          "starter": "function sumar(nums) {\n  // tu código aquí\n}\n\nconsole.log(sumar([1, 2, 3]));\n",
+          "solution": "function sumar(nums) {\n  let total = 0;\n  for (const n of nums) total += n;\n  return total;\n}\n\nconsole.log(sumar([1, 2, 3]));\n",
+          "tests": [
+            {
+              "name": "`sumar([1, 2, 3])` → 6",
+              "code": "sumar([1, 2, 3])",
+              "expected": 6
+            },
+            {
+              "name": "Array vacío → 0",
+              "code": "sumar([])",
+              "expected": 0
+            },
+            {
+              "name": "Con negativos",
+              "code": "sumar([-5, 5, 10])",
+              "expected": 10
+            },
+            {
+              "name": "Array grande",
+              "code": "sumar([10, 20, 30, 40])",
+              "expected": 100,
+              "hidden": true
+            }
+          ],
+          "hints": [
+            "Crea una variable `total` que empiece en `0`.",
+            "Recorre el array con `for...of` y ve sumando.",
+            "No olvides el `return total;` al final."
+          ],
+          "explanation": "También se puede hacer en una línea: `nums.reduce((a, b) => a + b, 0)`."
+        },
+        {
+          "id": "fizzbuzz",
+          "type": "code",
+          "title": "Reto: FizzBuzz",
+          "prompt": "Imprime los números del **1 al 15**, pero:\n\n- múltiplos de 3 → `Fizz`\n- múltiplos de 5 → `Buzz`\n- múltiplos de ambos → `FizzBuzz`",
+          "starter": "for (let i = 1; i <= 15; i++) {\n  \n}\n",
+          "solution": "for (let i = 1; i <= 15; i++) {\n  if (i % 15 === 0) console.log(\"FizzBuzz\");\n  else if (i % 3 === 0) console.log(\"Fizz\");\n  else if (i % 5 === 0) console.log(\"Buzz\");\n  else console.log(i);\n}\n",
+          "expectOutput": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz",
+          "hints": [
+            "Comprueba primero el caso de **15** (múltiplo de 3 y de 5).",
+            "`i % 3 === 0` significa \"i es múltiplo de 3\"."
+          ],
+          "xp": 30
+        }
+      ]
+    },
+    {
+      "id": "funciones",
+      "title": "Funciones",
+      "description": "Reutiliza código y entiende la recursión.",
+      "cards": [
+        {
+          "id": "map-visual",
+          "type": "html",
+          "title": "map y filter",
+          "prompt": "Pulsa los botones y mira cómo se **transforma** el array. Prueba los dos para completar la tarjeta.",
+          "completeOn": "api",
+          "html": "<div id=\"arr\" class=\"arr\"></div>\n<div class=\"bar\">\n  <button id=\"m\">.map(n => n * 2)</button>\n  <button id=\"f\">.filter(n => n % 2 === 0)</button>\n  <button id=\"r\">Reiniciar</button>\n</div>\n<pre id=\"code\"></pre>",
+          "css": ".arr{display:flex;gap:10px;min-height:70px;align-items:center;flex-wrap:wrap}\n.box{width:48px;height:60px;border-radius:2px;display:grid;place-items:center;font:400 18px var(--mono);border:1px solid var(--accent);color:var(--accent);transition:all .5s cubic-bezier(.2,.8,.2,1)}\n.box.out{opacity:0;transform:translateY(30px) scale(.5)}\n.box.new{animation:pop .6s}\n@keyframes pop{0%{opacity:0;transform:translateY(-10px)}100%{opacity:1;transform:none}}\n.bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}\npre{color:var(--muted);font-size:13px;margin:0}\nbutton{height:32px;padding:0 12px;border-radius:2px;background:transparent;font-family:var(--mono);font-size:13px}",
+          "js": "let datos = [1, 2, 3, 4, 5];\nconst usados = new Set();\nfunction pintar(clase) {\n  arr.innerHTML = \"\";\n  datos.forEach(n => {\n    const b = document.createElement(\"div\");\n    b.className = \"box \" + (clase || \"\");\n    b.textContent = n;\n    arr.appendChild(b);\n  });\n  code.textContent = \"[\" + datos.join(\", \") + \"]\";\n}\nm.onclick = () => {\n  datos = datos.map(n => n * 2);\n  pintar(\"new\");\n  usados.add(\"map\"); check();\n};\nf.onclick = () => {\n  const boxes = [...arr.children];\n  boxes.forEach((b, i) => { if (datos[i] % 2 !== 0) b.classList.add(\"out\"); });\n  setTimeout(() => { datos = datos.filter(n => n % 2 === 0); pintar(); }, 500);\n  usados.add(\"filter\"); check();\n};\nr.onclick = () => { datos = [1, 2, 3, 4, 5]; pintar(\"new\"); };\nfunction check() { if (usados.size === 2) CardLearner.complete(); }\npintar();",
+          "explanation": "`map` crea un array **del mismo tamaño** con cada valor transformado. `filter` crea un array con **solo** los que cumplen la condición. Ninguno modifica el original."
+        },
+        {
+          "id": "flecha",
+          "type": "flashcard",
+          "title": "Funciones flecha",
+          "front": "¿Cómo se escribe esta función como **función flecha**?\n\n```js\nfunction doble(n) {\n  return n * 2;\n}\n```",
+          "back": "```js\nconst doble = n => n * 2;\n```\n\nCon un solo parámetro no hacen falta paréntesis, y si el cuerpo es una expresión el `return` es implícito."
+        },
+        {
+          "id": "recursion",
+          "type": "trace",
+          "title": "Recursión: la pila de llamadas",
+          "prompt": "Una función **recursiva** se llama a sí misma. Observa cómo crece y se vacía la **pila**.",
+          "code": "function factorial(n) {\n  if (n <= 1) return 1;\n  return n * factorial(n - 1);\n}\nconsole.log(factorial(3));",
+          "steps": [
+            {
+              "line": 5,
+              "stack": [
+                "global"
+              ],
+              "note": "Llamamos a `factorial(3)`."
+            },
+            {
+              "line": 1,
+              "stack": [
+                "global",
+                "factorial(3)"
+              ],
+              "vars": {
+                "n": 3
+              }
+            },
+            {
+              "line": 3,
+              "stack": [
+                "global",
+                "factorial(3)"
+              ],
+              "vars": {
+                "n": 3
+              },
+              "note": "3 no es ≤ 1 → necesita `factorial(2)`."
+            },
+            {
+              "line": 1,
+              "stack": [
+                "global",
+                "factorial(3)",
+                "factorial(2)"
+              ],
+              "vars": {
+                "n": 2
+              }
+            },
+            {
+              "line": 3,
+              "stack": [
+                "global",
+                "factorial(3)",
+                "factorial(2)"
+              ],
+              "vars": {
+                "n": 2
+              },
+              "note": "Necesita `factorial(1)`."
+            },
+            {
+              "line": 1,
+              "stack": [
+                "global",
+                "factorial(3)",
+                "factorial(2)",
+                "factorial(1)"
+              ],
+              "vars": {
+                "n": 1
+              }
+            },
+            {
+              "line": 2,
+              "stack": [
+                "global",
+                "factorial(3)",
+                "factorial(2)",
+                "factorial(1)"
+              ],
+              "vars": {
+                "n": 1
+              },
+              "note": "**Caso base**: devuelve 1 y la pila empieza a deshacerse."
+            },
+            {
+              "line": 3,
+              "stack": [
+                "global",
+                "factorial(3)",
+                "factorial(2)"
+              ],
+              "vars": {
+                "n": 2,
+                "resultado": 2
+              },
+              "note": "2 × 1 = 2"
+            },
+            {
+              "line": 3,
+              "stack": [
+                "global",
+                "factorial(3)"
+              ],
+              "vars": {
+                "n": 3,
+                "resultado": 6
+              },
+              "note": "3 × 2 = 6"
+            },
+            {
+              "line": 5,
+              "stack": [
+                "global"
+              ],
+              "output": "6",
+              "note": "Resultado final: 6."
+            }
+          ],
+          "explanation": "Toda función recursiva necesita un **caso base** que detenga las llamadas; si no, la pila se desborda."
+        },
+        {
+          "id": "reto-palindromo",
+          "type": "code",
+          "title": "Reto: ¿es palíndromo?",
+          "prompt": "Escribe `esPalindromo(texto)` que devuelva `true` si el texto se lee igual al revés.\n\nIgnora **mayúsculas** y **espacios**: `\"Anita lava la tina\"` → `true`.",
+          "starter": "function esPalindromo(texto) {\n  \n}\n",
+          "solution": "function esPalindromo(texto) {\n  const limpio = texto.toLowerCase().replaceAll(\" \", \"\");\n  return limpio === [...limpio].reverse().join(\"\");\n}\n",
+          "tests": [
+            {
+              "name": "\"oso\" → true",
+              "code": "esPalindromo(\"oso\")",
+              "expected": true
+            },
+            {
+              "name": "\"hola\" → false",
+              "code": "esPalindromo(\"hola\")",
+              "expected": false
+            },
+            {
+              "name": "Ignora mayúsculas",
+              "code": "esPalindromo(\"Radar\")",
+              "expected": true
+            },
+            {
+              "name": "Ignora espacios",
+              "code": "esPalindromo(\"Anita lava la tina\")",
+              "expected": true
+            },
+            {
+              "name": "Devuelve un booleano",
+              "assert": "typeof esPalindromo(\"ab\") === \"boolean\""
+            }
+          ],
+          "hints": [
+            "`texto.toLowerCase()` pasa a minúsculas.",
+            "`texto.replaceAll(\" \", \"\")` quita espacios.",
+            "Para darle la vuelta: `[...s].reverse().join(\"\")`."
+          ]
+        }
+      ]
+    }
+  ]
+}
